@@ -81,7 +81,6 @@ export interface Props {
 
 const LiveAudioVisualizer: (props: Props) => ReactElement = ({
   mediaRecorder,
-  width = "100%",
   height = "100%",
   barWidth = 2,
   gap = 1,
