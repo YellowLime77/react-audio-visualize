@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   type ReactElement,
   useCallback,
@@ -6,6 +7,8 @@ import {
   useState,
 } from "react";
 import { calculateBarData, draw } from "./utils";
+
+import "./LiveAudioVisualizer.css";
 
 export interface Props {
   /**
@@ -153,11 +156,7 @@ const LiveAudioVisualizer: (props: Props) => ReactElement = ({
   return (
     <canvas
       ref={canvasRef}
-      width={width}
       height={height}
-      style={{
-        aspectRatio: "unset",
-      }}
     />
   );
 };
