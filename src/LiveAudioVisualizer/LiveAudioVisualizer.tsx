@@ -8,8 +8,6 @@ import {
 } from "react";
 import { calculateBarData, draw } from "./utils";
 
-import "./LiveAudioVisualizer.css";
-
 export interface Props {
   /**
    * Media recorder who's stream needs to visualized
@@ -81,7 +79,6 @@ export interface Props {
 
 const LiveAudioVisualizer: (props: Props) => ReactElement = ({
   mediaRecorder,
-  height = "100%",
   barWidth = 2,
   gap = 1,
   backgroundColor = "transparent",
@@ -155,7 +152,11 @@ const LiveAudioVisualizer: (props: Props) => ReactElement = ({
   return (
     <canvas
       ref={canvasRef}
-      height={height}
+      style={{
+        width: "100%",
+        height: "100%",
+        aspectRatio: "unset"
+      }}
     />
   );
 };
