@@ -4,6 +4,7 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useLayoutEffect,
   useState,
 } from "react";
 import { calculateBarData, draw } from "./utils";
@@ -149,15 +150,31 @@ const LiveAudioVisualizer: (props: Props) => ReactElement = ({
     );
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (!containerRef.current) return;
+
+    const resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        if (canvasRef.current) {
+          canvasRef.current.width = entry.contentRect.width;
+          canvasRef.current.height = entry.contentRect.height;
+        }
+      }
+    });
+
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        width: "100%",
-        height: "100%",
-        aspectRatio: "unset"
-      }}
-    />
+    <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
+      <canvas ref={canvasRef} />
+    </div>
   );
 };
 
